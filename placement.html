@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement Cell - Techno Main Salt Lake</title>
+    <style>
+        /* Reset default styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            padding-top: 110px; /* Push content below fixed navbar */
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .header img {
+            max-width: 100%;
+            height: auto;
+        }
+        .intro-section {
+            padding: 40px 20px;
+            background: #ffffff;
+            text-align: center;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .intro-section h2 {
+            color: #3a9497;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        .intro-section p {
+            color: #013f35;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .nav-bar {
+            background-color: #9290fa;
+            overflow: hidden;
+        }
+        .nav-bar a {
+            float: left;
+            display: block;
+            color: rgb(135, 38, 38);
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        .nav-bar a:hover {
+            background-color: #ddd;
+            color: rgb(115, 35, 35);
+        }
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+        .dropdown .dropbtn {
+            font-size: 17px;
+            border: none;
+            outline: none;
+            color: rgb(30, 27, 27);
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+            cursor: pointer;
+        }
+        .dropdown-submenu {
+        position: relative;
+    }
+    
+    .dropdown-submenu .dropdown-content {
+        top: 0;
+        left: 100%;
+        position: absolute;
+        display: none;
+    }
+    
+    .dropdown-submenu:hover .dropdown-content {
+        display: block;
+    }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            float: none;
+            color: rgb(74, 52, 52);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+        .dropdown-content a:hover {
+            background-color: #de5e5e;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown:hover .dropbtn {
+            background-color: #ddd;
+            color: rgb(198, 40, 40);
+        }
+        .content-section {
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            display: none; /* Hidden by default */
+        }
+        .content-section.active {
+            display: block; /* Shown when active */
+        }
+        .content-section h1 {
+            color: #362828;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .content-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .content-section th, .content-section td {
+            border: 1px solid #2a1e1e;
+            padding: 8px;
+            text-align: left;
+        }
+        .content-section th {
+            background-color: #f2f2f2;
+        }
+        .content-section p {
+            color: #975858;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+            color: #ffffff; /* Text color remains white for readability */
+            width: 100%;
+        }
+        /* Styles for the new nav bar */
+        nav {
+            background-color: rgba(157, 125, 201, 0.5); /* Semi-transparent version of #9d7dc9 */
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed; /* Fix navbar at the top */
+            top: 0; /* Align to top */
+            left: 0; /* Align to left */
+            width: 100%; /* Full width */
+            z-index: 1000; /* Keep navbar on top */
+            transition: transform 0.3s ease; /* Smooth transition for hide/show */
+        }
+        nav.hidden {
+            transform: translateY(-100%); /* Slide up to hide */
+        }
+        nav img {
+            vertical-align: middle;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+        nav ul li {
+            position: relative;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+            padding: 14px 16px;
+            display: block;
+        }
+        nav ul li a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        nav ul li .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+        }
+        nav ul li .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+        nav ul li .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        nav ul li:hover .dropdown-content {
+            display: block;
+        }
+        /* Recruiters Slider (from minor_project.html) */
+        .recruiters-slider {
+            overflow: hidden;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+
+        .slider-track {
+            display: flex;
+            animation: slide 20s linear infinite;
+        }
+
+        .recruiter-logo {
+            flex: 0 0 auto;
+            width: 150px;
+            height: 100px;
+            margin: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .recruiter-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .recruiter-logo a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .recruiters-slider:hover .slider-track {
+            animation-play-state: paused;
+        }
+
+        /* Footer (adapted from acad_prog.html) */
+        footer {
+    background-color: #494949;
+    color: rgb(253, 252, 252);
+    text-align: center;
+    padding: 15px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Responsive Adjustments (from minor_project.css) */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+            }
+
+            .dropdown-submenu .dropdown-content {
+                position: static;
+                padding-left: 20px;
+            }
+
+            .hero span {
+                font-size: 24px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header and Navigation (from acad_prog.html, with menu items from minor_project.html) -->
+    <header>
+        <nav>
+            <div><img src="tmsl-logo.webp" alt="TMSL Logo" width="300" height="50"></div>
+            <ul>
+                <li><a href="minor_project.html">HOME</a></li>
+                <li>
+                    <a href="acad_prog.html">Academics</a>
+                    <div class="dropdown-content">
+                        <a href="acad_prog.html">Academic Program</a>
+                        <div class="dropdown-submenu">
+                            <a href="#">Departments</a>
+                            <div class="dropdown-content">
+                                <a href="cource1.html">Computer Science</a>
+                                <a href="cource2.html">CST - AI & ML</a>
+                                <a href="cource3.html">CSE - Cyber Security</a>
+                                <a href="cource4.html">CSE - IoT</a>
+                                <a href="cource5.html">Civil Engineering</a>
+                                <a href="cource6.html">Electrical Engineering</a>
+                                <a href="cource7.html">Mechanical Engineering</a>
+                            </div>
+                        </div>
+                        <a href="Celender-2023.pdf">Academic Calendar</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#admission">Admission</a>
+                    <div class="dropdown-content">
+                        <a href="index.html">login</a>
+                        <a href="intrance.html">Entrance Exams</a>
+                        <a href="eligible.html">eligible for exam</a>
+                        <a href="fee.html">Fees Structure</a>
+                    </div>
+                </li>
+                <li><a href="placement.html">Placement</a></li>
+                <li><a href="#contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section (from placement.html) -->
+
+    <!-- Content Section (from placement.html, with recruiters slider from minor_project.html) -->
+    <div class="content">
+        <h2>About the Placement Cell</h2>
+        <p>
+            The Placement Cell at Techno Main Salt Lake is dedicated to facilitating students in achieving their career
+            goals. The cell actively organizes campus interviews, resume workshops, aptitude training, and industry
+            interaction programs. We have established relationships with top corporate houses to ensure excellent
+            placement opportunities for our students.
+        </p>
+        <p>
+            Our recruiters include major players in tech, consulting, finance, and more. Our infrastructure supports
+            smooth and organized placement drives with modern facilities.
+        </p>
+
+        <div class="recruiters-slider">
+            <div class="slider-track">
+                <div class="recruiter-logo"><a href="https://www.microsoft.com" target="_blank"><img
+                            src="https://www.masscue.org/wp-content/uploads/2021/08/Microsoft-Horizontal.jpg"
+                            alt="Microsoft"></a></div>
+                <div class="recruiter-logo"><a href="https://www.google.com" target="_blank"><img
+                            src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"
+                            alt="Google"></a></div>
+                <div class="recruiter-logo"><a href="https://www.amazon.com" target="_blank"><img
+                            src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon"></a>
+                </div>
+                <div class="recruiter-logo"><a href="https://www.deloitte.com" target="_blank"><img
+                            src="https://th.bing.com/th/id/OIP.OUZc4Y0893mGkevhLemWNwHaEK?cb=iwc1&w=3840&h=2160&rs=1&pid=ImgDetMain"
+                            alt="Deloitte"></a></div>
+                <div class="recruiter-logo"><a href="https://www.bosch.com" target="_blank"><img
+                            src="https://th.bing.com/th/id/OIP.B5X0eEdktpSCs2KZNqJBGQHaCH?cb=iwc1&w=640&h=183&rs=1&pid=ImgDetMain"
+                            alt="Bosch"></a></div>
+                <div class="recruiter-logo"><a href="https://www.tcs.com" target="_blank"><img
+                            src="https://th.bing.com/th/id/OIP.MZU5mDFjU3VNait0JhD00gHaCC?cb=iwc1&w=1883&h=520&rs=1&pid=ImgDetMain"
+                            alt="TCS"></a></div>
+                <div class="recruiter-logo"><a href="https://www.accenture.com" target="_blank"><img
+                            src="https://logos-world.net/wp-content/uploads/2020/06/Accenture-Symbol.png"
+                            alt="Accenture"></a></div>
+                <div class="recruiter-logo"><a href="https://www.ibm.com" target="_blank"><img
+                            src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM"></a></div>
+                <div class="recruiter-logo"><a href="https://www.wipro.com" target="_blank"><img
+                            src="https://th.bing.com/th/id/OIP.92WioF519OR45C3vqPqbAAHaEK?cb=iwc1&w=768&h=432&rs=1&pid=ImgDetMain"
+                            alt="Wipro"></a></div>
+                <div class="recruiter-logo"><a href="https://www.bluestarindia.com" target="_blank"><img
+                            src="https://th.bing.com/th/id/OIP.RrXJXWx408DWBwi_SIa2WgHaCx?cb=iwc1&rs=1&pid=ImgDetMain"
+                            alt="Blue Star"></a></div>
+                <div class="recruiter-logo"><a href="https://www.itcinfotech.com" target="_blank"><img
+                            src="https://th.bing.com/th/id/OIP.k-VmuCrd66S3F0MQx7fi6AHaD4?cb=iwc1&rs=1&pid=ImgDetMain"
+                            alt="ITC Infotech"></a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer (from acad_prog.html) -->
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 Techno Main Salt Lake. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Dropdown menu accessibility
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropdowns = document.querySelectorAll('nav ul li');
+
+            dropdowns.forEach(dropdown => {
+                const link = dropdown.querySelector('a');
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+
+                if (dropdownContent) {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const isVisible = dropdownContent.style.display === 'block';
+                        dropdownContent.style.display = isVisible ? 'none' : 'block';
+                    });
+
+                    document.addEventListener('click', (e) => {
+                        if (!dropdown.contains(e.target)) {
+                            dropdownContent.style.display = 'none';
+                        }
+                    });
+
+                    link.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            dropdownContent.style.display = 'block';
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
